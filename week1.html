@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Reg</title>
+    <style>
+        /* Minimal CSS */
+        body { font-family: sans-serif; display: grid; place-items: center; min-height: 100vh; margin: 0; background: #eee; }
+        .c { background: #fff; padding: 20px; border-radius: 6px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); width: 300px; }
+        input, select, button { width: 100%; padding: 8px; margin-bottom: 10px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px;}
+        button { background: #007bff; color: white; border: none; cursor: pointer; }
+        .e { color: red; font-size: 0.9em; display: none; margin-top: -8px; margin-bottom: 10px; }
+        .s { color: green; font-weight: bold; display: none; text-align: center; padding: 10px; background: #e0f7e0; border-radius: 4px; }
+    </style>
+</head>
+<body>
+    <div class="c">
+        <h3>Event Sign-up</h3>
+        <form id="f">
+            <label for="n">Name</label>
+            <input type="text" id="n" required>
+            <div id="ne" class="e">Required.</div>
+
+            <label for="m">Email</label>
+            <input type="email" id="m" required>
+            <div id="me" class="e">Valid email required.</div>
+
+            <label for="t">Type</label>
+            <select id="t" required>
+                <option value="">--</option>
+                <option value="a">Attendee</option>
+                <option value="s">Speaker</option>
+            </select>
+            <div id="te" class="e">Required.</div>
+            
+            <button type="submit">Go</button>
+        </form>
+        <div id="ss" class="s">Success!</div>
+    </div>
+
+    <script>
+        // Minimal JavaScript Validation
+        document.getElementById('f').addEventListener('submit', function(e) {
+            e.preventDefault(); 
+            let v = true; // v = isValid
+
+            const n = document.getElementById('n');
+            const m = document.getElementById('m');
+            const t = document.getElementById('t');
+
+            // Validation function
+            const check = (el, eid, p = null) => {
+                let valid = (p ? p.test(el.value) : (el.value.trim() !== ''));
+                document.getElementById(eid).style.display = valid ? 'none' : 'block';
+                if (!valid) v = false;
+            };
+
+            // Run checks
+            check(n, 'ne');
+            check(m, 'me', /^[^\s@]+@[^\s@]+\.[^\s@]+$/); // Basic email regex
+            check(t, 'te');
+            
+            // Submission
+            if (v) {
+                console.log('Submitted!');
+                document.getElementById('f').style.display = 'none';
+                document.getElementById('ss').style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html>
