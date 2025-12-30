@@ -1,1 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Event Registration</title>
+</head>
+<body>
+
+  <h2>Event Registration</h2>
+
+  <form id="registrationForm">
+    <label>
+      Name:
+      <input type="text" id="name" required>
+    </label><br><br>
+
+    <label>
+      Email:
+      <input type="email" id="email" required>
+    </label><br><br>
+
+    <button type="submit">Register</button>
+  </form>
+
+  <h3>Registered Participants</h3>
+  <ul id="list"></ul>
+
+  <script>
+    const registrations = [];
+
+    document.getElementById("registrationForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const name = document.getElementById("name").value;
+      const email = document.getElementById("email").value;
+
+      registrations.push({ name, email });
+
+      const listItem = document.createElement("li");
+      listItem.textContent = `${name} (${email})`;
+      document.getElementById("list").appendChild(listItem);
+
+      this.reset();
+    });
+  </script>
+
+</body>
+</html>
 #Registration form
